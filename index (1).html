@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afif Ayan — Aerospace, Rocketry & Electrical Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b1e3a;
+    --bg-panel: #0f2647;
+    --line: #1c3a63;
+    --paper: #eef3f8;
+    --paper-dim: #9db2cc;
+    --cyan: #4fd1ff;
+    --amber: #ffb84f;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Chakra Petch', sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg); color: var(--paper);
+    font-family: var(--mono); line-height: 1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+  a{ color:inherit; }
+  ::selection{ background: var(--cyan); color:#0b1e3a; }
+
+  .ref-tag{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    color: var(--amber); text-transform: uppercase;
+    display:flex; align-items:center; gap:8px;
+  }
+  .ref-tag::before{ content:''; width:16px; height:1px; background: var(--amber); }
+
+  header{
+    position: sticky; top:0; z-index:50;
+    background: rgba(11,30,58,0.9); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-wrap{
+    max-width: 1080px; margin:0 auto; padding: 18px 24px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .brand{ font-family: var(--display); font-weight:700; font-size:19px; letter-spacing:0.03em; }
+  .brand span{ color: var(--cyan); }
+  nav ul{ list-style:none; display:flex; gap:26px; }
+  nav a{ text-decoration:none; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color: var(--paper-dim); transition: color 0.2s; }
+  nav a:hover{ color: var(--cyan); }
+  @media (max-width:700px){ nav ul{ display:none; } }
+
+  section{ max-width: 1080px; margin:0 auto; padding: 90px 24px; }
+
+  /* Hero */
+  .hero{ min-height: 82vh; display:flex; flex-direction:column; justify-content:center; position:relative; }
+  .hero h1{
+    font-family: var(--display); font-weight:700;
+    font-size: clamp(40px, 8vw, 88px); line-height:1.0; letter-spacing:-0.01em;
+    margin-top: 22px;
+  }
+  .hero h1 .cy{ color: var(--cyan); }
+  .hero .tagline{
+    font-family: var(--mono); color: var(--paper-dim); margin-top:20px;
+    font-size:15px; max-width: 560px;
+  }
+  .hero-cta{ margin-top:36px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family: var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em;
+    text-decoration:none; padding:12px 20px; border:1px solid var(--line); transition: all 0.2s;
+  }
+  .btn-primary{ background: var(--cyan); color:#0b1e3a; border-color: var(--cyan); font-weight:600; }
+  .btn-primary:hover{ background:transparent; color: var(--cyan); }
+  .btn-ghost:hover{ border-color: var(--cyan); color: var(--cyan); }
+
+  .hero-chip{
+    position:absolute; right:0; top:50%; transform:translateY(-50%);
+    width:190px; height:190px; display:none;
+  }
+  @media (min-width:960px){ .hero-chip{ display:block; } }
+
+  /* Timeline strip */
+  .timeline{
+    display:flex; justify-content:space-between; border:1px solid var(--line);
+    background: var(--bg-panel); padding: 18px 24px; margin-top: 50px; flex-wrap:wrap; gap:10px;
+  }
+  .timeline .t{ font-size:12px; color: var(--paper-dim); }
+  .timeline .t b{ color: var(--amber); display:block; font-family: var(--display); font-size:20px; }
+
+  .sec-head{ margin-bottom: 46px; }
+  .sec-head h2{ font-family: var(--display); font-size: clamp(26px,4vw,38px); font-weight:600; margin-top:8px; }
+
+  /* About */
+  .about-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap:50px; }
+  @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-grid p{ color: var(--paper-dim); font-size:15px; margin-bottom:14px; }
+  .about-grid strong{ color: var(--paper); }
+
+  /* Current project callout */
+  .current-box{
+    border: 1px solid var(--cyan); background: var(--bg-panel);
+    padding: 30px; position:relative;
+  }
+  .current-box .ref-tag{ margin-bottom: 10px; }
+  .current-box h3{ font-family: var(--display); font-size:22px; margin-bottom:10px; }
+  .current-box p{ color: var(--paper-dim); font-size:14px; }
+  .pulse{
+    width:8px; height:8px; border-radius:50%; background: var(--cyan);
+    display:inline-block; animation: blink 1.6s infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  /* Gallery */
+  .gallery-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;
+  }
+  @media (max-width:760px){ .gallery-grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width:520px){ .gallery-grid{ grid-template-columns: 1fr; } }
+  .gallery-card{
+    border: 1px dashed var(--line); background: var(--bg-panel);
+    aspect-ratio: 4/3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding: 16px; gap:8px; transition: border-color 0.2s;
+  }
+  .gallery-card:hover{ border-color: var(--cyan); }
+  .gallery-card .plus{ font-size: 26px; color: var(--cyan); font-family: var(--display); }
+  .gallery-card .label{ font-size:11px; color: var(--paper-dim); text-transform:uppercase; letter-spacing:0.05em; }
+  .gallery-note{
+    margin-top:22px; font-size:13px; color: var(--paper-dim); border-left:2px solid var(--amber); padding-left:14px;
+  }
+  .gallery-note code{ color: var(--amber); }
+
+  /* Projects list */
+  .project-card{
+    border:1px solid var(--line); background: var(--bg-panel); padding:28px; margin-bottom:20px;
+  }
+  .project-top{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:10px; }
+  .project-card h3{ font-family: var(--display); font-size:20px; }
+  .project-tag{
+    font-size:11px; text-transform:uppercase; color: var(--cyan);
+    border:1px solid #1c3a6390; padding:4px 10px; white-space:nowrap; height: fit-content;
+  }
+  .project-card p{ color: var(--paper-dim); font-size:14px; margin-bottom:12px; }
+  .tech-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tech-row span{ font-size:11px; color: var(--paper-dim); border:1px solid var(--line); padding:3px 9px; }
+
+  /* Skills */
+  .skills-grid{ display:grid; grid-template-columns: repeat(5,1fr); gap:1px; background: var(--line); border:1px solid var(--line); }
+  @media (max-width:980px){ .skills-grid{ grid-template-columns: repeat(3,1fr); } }
+  @media (max-width:600px){ .skills-grid{ grid-template-columns: repeat(2,1fr); } }
+  .skill-cell{ background: var(--bg); padding:22px; }
+  .skill-cell h4{ font-size:11px; text-transform:uppercase; color: var(--amber); letter-spacing:0.06em; margin-bottom:10px; }
+  .skill-cell ul{ list-style:none; }
+  .skill-cell li{ font-size:13.5px; color: var(--paper-dim); padding:4px 0; border-top:1px dashed var(--line); }
+  .skill-cell li:first-child{ border-top:none; }
+
+  /* Contact */
+  .contact-wrap{ border:1px solid var(--line); background: var(--bg-panel); padding:50px 36px; text-align:center; }
+  .contact-wrap h2{ font-family: var(--display); font-size: clamp(26px,5vw,40px); font-weight:700; margin-bottom:14px; }
+  .contact-wrap p{ color: var(--paper-dim); margin-bottom:26px; font-size:14px; }
+  .contact-links{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+  footer{ text-align:center; padding:30px 24px; font-size:11px; color: var(--paper-dim); border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="brand">AFIF <span>AYAN</span></div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#current">Current Build</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="ref-tag">Maker Log — Est. Age 7</span>
+  <h1>I build rockets<br>and the systems<br>that fly them<span class="cy">.</span></h1>
+  <p class="tagline">16-year-old aerospace & electrical engineer in the making — rocketry, avionics, robotics, and a deep curiosity for quantum mechanics. From first circuit at age seven to CAD airframes, PCB layouts, and C++ flight code today.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">See Projects</a>
+    <a href="#gallery" class="btn btn-ghost btn" style="border:1px solid #1c3a63;">Gallery</a>
+  </div>
+
+  <div class="hero-chip">
+    <svg viewBox="0 0 200 200" width="100%" height="100%">
+      <rect x="60" y="60" width="80" height="80" fill="none" stroke="#4fd1ff" stroke-width="1.5"/>
+      <rect x="80" y="80" width="40" height="40" fill="none" stroke="#ffb84f" stroke-width="1.5"/>
+      <line x1="60" y1="20" x2="60" y2="60" stroke="#4fd1ff" stroke-width="1.5"/>
+      <line x1="140" y1="20" x2="140" y2="60" stroke="#4fd1ff" stroke-width="1.5"/>
+      <line x1="60" y1="140" x2="60" y2="180" stroke="#4fd1ff" stroke-width="1.5"/>
+      <line x1="140" y1="140" x2="140" y2="180" stroke="#4fd1ff" stroke-width="1.5"/>
+      <circle cx="60" cy="20" r="4" fill="#ffb84f"/>
+      <circle cx="140" cy="20" r="4" fill="#ffb84f"/>
+      <circle cx="60" cy="180" r="4" fill="#ffb84f"/>
+      <circle cx="140" cy="180" r="4" fill="#ffb84f"/>
+    </svg>
+  </div>
+
+  <div class="timeline">
+    <div class="t"><b>Age 7–8</b>First builds & circuits</div>
+    <div class="t"><b>KiCad</b>Avionics & circuit design</div>
+    <div class="t"><b>Fusion 360</b>Airframe & part modeling</div>
+    <div class="t"><b>C++</b>Flight & robot code</div>
+    <div class="t"><b>Age 16</b>Now — Rocketry & Aerospace</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="sec-head">
+    <span class="ref-tag">About</span>
+    <h2>Who I am</h2>
+  </div>
+  <div class="about-grid">
+    <div>
+      <p>I'm <strong>Afif Ayan</strong>, a 16-year-old aspiring aerospace and electrical engineer. I started this journey at age seven or eight, taking apart and building small circuits just to see how things worked.</p>
+      <p>Since then I've grown into <strong>rocketry, aeronautics, and avionics</strong> — using <strong>Fusion 360</strong> to design airframes and parts, <strong>KiCad</strong> to design the electronics and flight circuits, and <strong>C++</strong> to write the code that controls them. Robotics is still part of the toolkit, but rockets and flight systems are where I'm focused now.</p>
+      <p>This page is where I share what I'm building right now and the projects I've finished along the way.</p>
+    </div>
+    <div class="current-box" style="align-self:start;">
+      <span class="ref-tag"><span class="pulse"></span> Status</span>
+      <h3>Actively Building</h3>
+      <p>Check the Current Build section below for what's on my workbench right now.</p>
+    </div>
+  </div>
+</section>
+
+<section id="current">
+  <div class="sec-head">
+    <span class="ref-tag">On The Bench</span>
+    <h2>Current Project</h2>
+  </div>
+  <div class="current-box">
+    <span class="ref-tag"><span class="pulse"></span> In Progress</span>
+    <h3>[ Name your current build here ]</h3>
+    <p>Describe what you're working on right now — the goal, what part you're on (design, wiring, coding, testing), and what's next. Swap this text out any time your project moves forward.</p>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="sec-head">
+    <span class="ref-tag">Photo Log</span>
+    <h2>Project Gallery</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-card"><span class="plus">+</span><span class="label">Add Photo 1</span></div>
+    <div class="gallery-card"><span class="plus">+</span><span class="label">Add Photo 2</span></div>
+    <div class="gallery-card"><span class="plus">+</span><span class="label">Add Photo 3</span></div>
+    <div class="gallery-card"><span class="plus">+</span><span class="label">Add Photo 4</span></div>
+    <div class="gallery-card"><span class="plus">+</span><span class="label">Add Photo 5</span></div>
+    <div class="gallery-card"><span class="plus">+</span><span class="label">Add Photo 6</span></div>
+  </div>
+  <p class="gallery-note">To add real photos: put image files in an <code>images</code> folder next to this page, then replace a card's content with <code>&lt;img src="images/yourphoto.jpg"&gt;</code>. Ask Claude any time to wire this up for you.</p>
+</section>
+
+<section id="projects">
+  <div class="sec-head">
+    <span class="ref-tag">Build Log</span>
+    <h2>Projects</h2>
+  </div>
+
+  <div class="project-card">
+    <div class="project-top">
+      <h3>[ Rocket / Model Name ]</h3>
+      <span class="project-tag">Rocketry</span>
+    </div>
+    <p>Short description — the rocket's design goals, motor class, recovery system, and what you learned from the build or launch.</p>
+    <div class="tech-row"><span>Fusion 360</span><span>Aerodynamics</span><span>C++</span></div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-top">
+      <h3>[ Project Name ]</h3>
+      <span class="project-tag">Avionics / Electrical</span>
+    </div>
+    <p>Short description of the flight computer, sensor board, or circuit you designed and what it controls or measures.</p>
+    <div class="tech-row"><span>KiCad</span><span>PCB Design</span><span>Soldering</span></div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-top">
+      <h3>[ Project Name ]</h3>
+      <span class="project-tag">Robotics</span>
+    </div>
+    <p>Short description — what the robot does, what problem it solves or what you were experimenting with.</p>
+    <div class="tech-row"><span>Fusion 360</span><span>KiCad</span><span>C++</span></div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="sec-head">
+    <span class="ref-tag">Toolkit</span>
+    <h2>Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cell">
+      <h4>Aerospace / Rocketry</h4>
+      <ul><li>Rocket Airframe Design</li><li>Aerodynamics Basics</li><li>Recovery Systems</li></ul>
+    </div>
+    <div class="skill-cell">
+      <h4>3D Design</h4>
+      <ul><li>Fusion 360</li><li>Part Modeling</li><li>3D Printing Prep</li></ul>
+    </div>
+    <div class="skill-cell">
+      <h4>Electrical / Avionics</h4>
+      <ul><li>KiCad Schematics</li><li>PCB Layout</li><li>Flight Electronics</li></ul>
+    </div>
+    <div class="skill-cell">
+      <h4>Programming & Robotics</h4>
+      <ul><li>C++</li><li>Python (Learning)</li><li>Microcontroller Code</li><li>Robot Assembly</li></ul>
+    </div>
+    <div class="skill-cell">
+      <h4>Physics & Quantum Mechanics</h4>
+      <ul><li>Quantum Mechanics (Self-Study)</li><li>Applied Physics for Flight</li><li>Theoretical Curiosity</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-wrap">
+    <h2>Want to talk robotics?</h2>
+    <p>Open to feedback, competitions, and collabs.</p>
+    <div class="contact-links">
+      <a href="mailto:afifayan3010@gmail.com" class="btn btn-primary">Email Me</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Afif Ayan — Aerospace, Rocketry & Electrical Engineering Portfolio
+</footer>
+
+</body>
+</html>
